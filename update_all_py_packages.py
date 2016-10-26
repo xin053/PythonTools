@@ -19,11 +19,11 @@ import re
 
 def main():
     output = subprocess.getoutput('pip list --outdated')
-    if(output == ''):
+    if output == '':
         print("all packages are up to date")
         return
     package_list = output.split('\n')
-    
+
     for package in package_list:
         package_name = re.findall(r"\w+", package)[0]
 
@@ -32,14 +32,14 @@ def main():
             p=subprocess.Popen("pip install -U " + package_name, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
             stdoutput,erroutput = p.communicate()
             flag = False
-            if(erroutput.decode('utf8') != ''):
+            if erroutput != '':
                 flag = True
-        
+
         print(package_name + " update successfully")
-    
+
     print("Done")
     output = subprocess.getoutput('pip list --outdated')
-    if(output == ''):
+    if output == '':
         print("all packages are up to date")
     else:
         print("something is wrong")

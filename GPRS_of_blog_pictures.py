@@ -7,7 +7,7 @@
 This file is used for running GPRS of my blog's pictures in 'https://i.imgur.com'
 for not deleting these pictures.
 
-please run this file at least one time every six months 
+please run this file at least one time every six months
 """
 
 __title__ = 'GPRS_of_blog_pictures'
@@ -29,26 +29,26 @@ def main():
     # files in E:\Hexo\source\_posts
     for filename in os.listdir(dir_path):
         # print(filename)
-        with open(dir_path + "\\" + filename,"r", encoding= 'utf8') as md_file:
+        with open(dir_path + "\\" + filename, "r", encoding='utf8') as md_file:
             md_file_content = md_file.read()
             href = re.findall(r"https?\://i.imgur.com/\w+\.(?:jpg|jpeg|png|bmp|gif)", md_file_content)
             hrefs.extend(href)
 
     # README
-    with open(readme_path,"r", encoding= 'utf8') as readme_file:
+    with open(readme_path, "r", encoding='utf8') as readme_file:
         read_file_content = readme_file.read()
         href = re.findall(r"https?\://i.imgur.com/\w+\.(?:jpg|jpeg|png|bmp|gif)", read_file_content)
-        hrefs.extend(href)      
-    
+        hrefs.extend(href)
+
     # print(hrefs)
 
     # run GPRS
     for href in hrefs:
         result = requests.get(href)
         # print(result.status_code)
-        if(result.status_code == 404):
+        if result.status_code == 404:
             print(href + " is wrong!")
-    
+
     print("OK!!!")
 
 
